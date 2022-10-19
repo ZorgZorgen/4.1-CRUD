@@ -1,0 +1,69 @@
+<h3>Agregar nuevo empleado</h3>
+<div class="container">
+  <form #addEmp="ngForm" (ngSubmit)="onSubmit(addEmp.value)">
+    <div class="form-group">
+      <label for="name">Nombre del Empleado:</label>
+      <input type="text" required #refName="ngModel" minlength="3" maxlength="30" name="name" pattern="[a-zA-Z ]*$" id="name" class="form-control" [(ngModel)]="name"/>
+      <div *ngIf="refName.errors && (refName.dirty||refName.touched)" class="alert alert-danger">
+        <div [hidden]="!refName.errors.required">
+          Porfvor introduce un nombre]
+        </div>
+        <div [hidden]="!refName.errors.minlength">
+          Nombre debe de contener 3 o mas caracteres alfabeticos
+        </div>
+        <div [hidden]="!refMob.errors.pattern">
+          Ingresa solamente caracteres alfabeticos
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="location">Ubicacion</label>
+      <select #refloc="ngModel" [(ngModel)]="location" name="location" class="form-control" id="location" required>
+        <option>Tijuana</option>
+        <option>Mexicali</option>
+        <option>Ensenada</option>
+        <option>Tecate</option>
+      </select>
+      <div *ngIf="refName.errors && (refName.dirty||refName.touched)" class="alert alert-danger">
+        <div [hidden]="!refName.errors.required">
+          Ingresa un nombre
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="email">Correo:</label>
+      <input type="email" required email maxlength="30" #refMail="ngModel" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" [(ngModel)]="email"/>
+      <div *ngIf="refMail.errors && (refMail.dirty||refMail.touched)" class="alert alert-danger">
+        <div [hidden]="!refMail.errors.required">
+          Ingresa un correo
+        </div>
+        <div [hidden]="!refMail.errors.email">
+          Ingresa un correo valido
+        </div>
+        <div [hidden]="!refMob.errors.pattern">
+        Ingresa un correo valido
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="mobile">Telefono:</label>
+      <input type="text" required pattern="^[1-9]\d{9}$" #refMob="ngModel" id="mobile" name="mobile" class="form-control" [(ngModel)]="mobile"/>
+    </div>
+    <div *ngIf="refMob.errors && (refMob.dirty || refMob.touched)" class="alert alert-danger">
+      <div [hidden]="!refMob.errors.required">
+        Ingresa un numero telefonico
+      </div>
+      <div [hidden]="!refMob.errors.pattern">
+      Ingresa un numero telefonico valido
+      </div>
+    </div>
+   
+    <button [disabled]="!addEmp.form.valid" type="submit" id="add" class="btn btn-primary">Ingresar</button>
+  </form>
+</div>

@@ -1,0 +1,64 @@
+<h3>Editar Datos de Empleado</h3>
+<div class="container">
+  <form #editEmp="ngForm" (ngSubmit)="onUpdate(editEmp.value)">
+    <div class="form-group">
+      <label for="name">Nombre del Empleado:</label>
+      <input type="text" required  #refName="ngModel" minlength="3" maxlength="30" name="name" id="name" pattern="[a-zA-Z ]*$" class="form-control" [(ngModel)]="name"/>
+      <div *ngIf="refName.errors && (refName.dirty||refName.touched)" class="alert alert-danger">
+        <div [hidden]="!refName.errors.required">
+          Ingresar nombre
+        </div>
+        <div [hidden]="!refName.errors.minlength">
+          El nombre debe contener 3 o mas caracteres alfabeticos
+        </div>
+        <div [hidden]="!refMob.errors.pattern">
+          Ingresa solamente caracteres alfabeticos
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="location">Ubicacion</label>
+      <select class="form-control" name="location" [(ngModel)]="location" id="location" value="location">
+        <option>Tijuana</option>
+        <option>Mexicali</option>
+        <option>Ensenada</option>
+        <option>Tecate</option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label for="email">Correo:</label>
+      <input type="email" required email maxlength="30" #refMail="ngModel" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="email" value="email"class="form-control" [(ngModel)]="email"/>
+      <div *ngIf="refMail.errors && (refMail.dirty||refMail.touched)" class="alert alert-danger">
+        <div [hidden]="!refMail.errors.required">
+          Ingresa correo electronico
+        </div>
+        <div [hidden]="!refMail.errors.email">
+          Ingresa un correo valido
+        </div>
+        <div [hidden]="!refMob.errors.pattern">
+        Ingresa un correo valido
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="mobile">Telefono:</label>
+      <input type="text" required pattern="^[1-9]\d{9}$" #refMob="ngModel" id="mobile" value="mobile" name="mobile" class="form-control" [(ngModel)]="mobile"/>
+    </div>
+    <div *ngIf="refMob.errors && (refMob.dirty || refMob.touched)" class="alert alert-danger">
+      <div [hidden]="!refMob.errors.required">
+        Ingresa un numero telefonico
+      </div>
+      <div [hidden]="!refMob.errors.pattern">
+        Ingresa un numero valido
+      </div>
+    </div>
+   
+    <button [disabled]="!editEmp.form.valid" type="submit" id="update" class="btn btn-primary">Actualizar</button>
+  </form>
+</div>
